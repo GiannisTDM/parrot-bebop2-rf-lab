@@ -68,7 +68,22 @@ The active files are:
 - Bebop 2: `/lib/firmware/brcm/bcm43526.nvm`
 - SkyController 2: `/lib/firmware/brcm/bcm43526-ffff-ffff.nvm`
 
-Edits are made to a temporary staged copy first. The tool shows a unified diff and requires the literal confirmation `APPLY`. Before writing, it stores a timestamped, checksummed-name backup in `internal_000/rf_lab_backups/`, remounts the root filesystem only if needed, verifies the resulting file byte-for-byte, and restores the original mount state. The SC2 factory file and Broadcom OTP are never written.
+The root filesystem is read-only by default on both products. Before using `config`, explicitly run this on the relevant BB2 or SC2 shell:
+
+```sh
+mount -o remount,rw /
+```
+
+Edits are made to a temporary staged copy first. The tool shows a unified diff and requires the literal confirmation `APPLY`. Before writing, it stores a timestamped, checksummed-name backup in `internal_000/rf_lab_backups/` and verifies the resulting file byte-for-byte. The SC2 factory file and Broadcom OTP are never written.
+
+After leaving the editor, flush the write and restore the normal read-only mount before rebooting:
+
+```sh
+sync
+mount -o remount,ro /
+```
+
+The tool retains an automatic remount attempt as defense in depth, but the tested procedure requires the explicit read-write remount on both endpoints.
 
 A reboot is required for a written NVM file to become the driver runtime. The live screen shows file and runtime values side by side so a forgotten reboot is obvious.
 

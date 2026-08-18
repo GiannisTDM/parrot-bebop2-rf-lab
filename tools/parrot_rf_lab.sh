@@ -3,7 +3,7 @@
 # Runs on the stock BusyBox ash shell of both Parrot Bebop 2 and
 # SkyController 2. No Python or third-party packages are required.
 
-VERSION="0.3.0"
+VERSION="0.3.1"
 WL_BIN="${WL_BIN:-/usr/sbin/bcmwl}"
 INTERVAL="${RF_LAB_INTERVAL:-1}"
 REQUESTED_PEER="${RF_LAB_PEER:-}"
@@ -1126,6 +1126,12 @@ parameter_help()
 
 config_menu()
 {
+    if ! root_is_rw; then
+        printf '%sThe root filesystem is read-only.%s\n' "$RED" "$RESET"
+        printf 'Before using the NVM editor, run: %smount -o remount,rw /%s\n' "$BOLD" "$RESET"
+        printf 'After editing, run: %ssync; mount -o remount,ro /%s\n' "$BOLD" "$RESET"
+        return 1
+    fi
     if [ ! -f "$ACTIVE_NVM" ]; then
         printf '%sActive NVM not found: %s%s\n' "$RED" "$ACTIVE_NVM" "$RESET"
         return 1
@@ -1169,6 +1175,9 @@ config_menu()
     done
     rm -f "$STAGE_FILE" "${STAGE_FILE}.new"
     STAGE_FILE=""
+    printf '\n%sNVM editor closed. Flush writes and restore the normal read-only mount:%s\n' "$YELLOW" "$RESET"
+    printf '  sync\n  mount -o remount,ro /\n'
+    pause_screen
 }
 
 main_menu()

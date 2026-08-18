@@ -26,8 +26,24 @@ At a fixed 5 m separation:
 
 | Transmit direction | Stock RSSI | Modified RSSI | Observed change |
 |---|---:|---:|---:|
-| SkyController 2 -> Bebop 2 | about -36.5 dBm | about -20.3 dBm | +16.2 dB |
-| Bebop 2 -> SkyController 2 | about -31.5 dBm | about -17.5 dBm | +14.0 dB |
+| SkyController 2 -> Bebop 2 | -38 dBm | -22 dBm | +16 dB |
+| Bebop 2 -> SkyController 2 | -33 dBm | -18 dBm | +15 dB |
+
+## Fresh 5 m A/B captures
+
+These four captures use the same channel, physical separation and antenna orientation. Both endpoints were stock for the baseline and both endpoints used the experimental profile for the modified run. Each image shows the **receiving** endpoint, incoming direction and that receiver's active NVM values; the stock `MAXP76`/`MAXP80` difference is therefore expected between the Bebop 2 and SC2 displays.
+
+### SkyController 2 transmitting to Bebop 2
+
+| Stock link — both endpoints stock | Modified link — both endpoints EPA2 / PD16 / MAXP80 |
+|---|---|
+| ![Bebop 2 receiving stock SkyController signal at 5 m](docs/images/rf-lab-bebop2-stock-5m.png) | ![Bebop 2 receiving modified SkyController signal at 5 m](docs/images/rf-lab-bebop2-modified-5m.png) |
+
+### Bebop 2 transmitting to SkyController 2
+
+| Stock link — both endpoints stock | Modified link — both endpoints EPA2 / PD16 / MAXP80 |
+|---|---|
+| ![SkyController 2 receiving stock Bebop signal at 5 m](docs/images/rf-lab-sc2-stock-5m.png) | ![SkyController 2 receiving modified Bebop signal at 5 m](docs/images/rf-lab-sc2-modified-5m.png) |
 
 Those are receiver-reported link levels, not direct transmitter measurements. Primary-source cross-checking currently supports two different power quantities:
 
@@ -90,6 +106,8 @@ Run it on the SkyController:
 sh /data/lib/ftp/internal_000/parrot_rf_lab.sh menu
 ```
 
+Monitoring is read-only. To use the NVM editor on **either** device, first run `mount -o remount,rw /` in that device's shell; after applying and leaving the editor, run `sync` and `mount -o remount,ro /` before rebooting.
+
 Detailed usage and recovery instructions are in [the tool manual](tools/PARROT_RF_LAB.md).
 
 For a complete stock-to-modified reproduction—including backups, the exact per-device values, reboot/runtime verification, bidirectional 60-second logs, CSV retrieval and rollback—follow [Reproducing the RF results](docs/REPRODUCING_RESULTS.md).
@@ -124,6 +142,12 @@ notes/                           detailed firmware and BCM43526 research maps
 This is experimental reverse-engineering work, not a finished power modification kit. The next decisive measurements are per-chain conducted power, EVM, spectrum mask and band-edge emissions at fixed channel/rate, followed by thermal measurements under a controlled duty cycle.
 
 Contributions with BCM43526 documentation, sanitized stock NVM comparisons, calibrated RF measurements, or repeatable test logs are very welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Acknowledgements
+
+This work was partly inspired by the community-authored [*An unofficial Bebop drone hacking guide 1.7.2*](https://fargesportfolio.com/wp-content/uploads/2018/01/BeebopHackingGuide1_7_2.pdf). Its unusually thorough explanation of the Bebop's Linux filesystem, Telnet/FTP access, backup discipline and accessible developer tooling showed how open the platform really was and encouraged GiannisTDM to begin experimenting with the Bebop 2. It remains excellent background material for practically any Bebop software project.
+
+The guide did not provide the RF profile or code published here; credit is for foundational documentation and inspiration. Additional acknowledgements and prior-art context are in [ACKNOWLEDGEMENTS.md](ACKNOWLEDGEMENTS.md).
 
 ## License and trademarks
 

@@ -136,6 +136,14 @@ If your stock values differ, preserve and report them rather than forcing this p
 
 ## 7. Stage and apply the experimental profile
 
+The root filesystem is read-only by default on both products. Before opening the editor, explicitly remount `/` read-write in **each** device shell:
+
+```sh
+mount -o remount,rw /
+```
+
+This manual step is required on the tested BB2 and SC2 firmware. The tool retains an automatic remount attempt as a final safeguard, but the documented and verified procedure does not rely on it.
+
 Launch the menu on each endpoint:
 
 ```sh
@@ -154,7 +162,15 @@ On one endpoint at a time:
 4. Choose `a` to apply.
 5. Type the literal confirmation `APPLY`.
 6. Record the displayed timestamped backup path.
-7. Reboot that endpoint before evaluating it.
+7. Exit the configuration menu.
+8. Flush the write and return the root filesystem to its normal read-only state:
+
+   ```sh
+   sync
+   mount -o remount,ro /
+   ```
+
+9. Reboot that endpoint before evaluating it.
 
 The target profile is:
 
@@ -167,7 +183,7 @@ maxp2ga1=80
 
 On the SC2, `maxp=80/80` is already stock, so the demonstrated change modifies the two causal selectors `epagain2g` and `pdgain2g`. On the Bebop, the shared test envelope also raises its stock `maxp` from 76/76 to 80/80. This distinction should be retained in any report.
 
-The editor changes only these named lines in a staged copy, verifies identity fields, creates an FTP-visible backup, writes the active filesystem NVM, verifies it byte-for-byte and restores the original root mount state. It never modifies the factory SC2 NVM or Broadcom OTP.
+The editor changes only these named lines in a staged copy, verifies identity fields, creates an FTP-visible backup, writes the active filesystem NVM and verifies it byte-for-byte. Because this procedure deliberately mounts `/` read-write before starting the editor, return it to read-only explicitly afterward. The tool never modifies the factory SC2 NVM or Broadcom OTP.
 
 Do not use `PD16/MAXP90`; that combination produced an approximately -70 dBm link at 5 m and is intentionally absent from the presets.
 
@@ -200,7 +216,14 @@ sh /data/ftp/internal_000/parrot_rf_lab.sh log epa2_pd16_m80_5m_bb2_rx
 sh /data/lib/ftp/internal_000/parrot_rf_lab.sh log epa2_pd16_m80_5m_sc2_rx
 ```
 
-The original fixed-distance results were approximately:
+The fresh annotated fixed-distance captures produced:
+
+| Direction | Stock | Modified | Change |
+|---|---:|---:|---:|
+| SC2 -> Bebop | -38 dBm | -22 dBm | +16 dB |
+| Bebop -> SC2 | -33 dBm | -18 dBm | +15 dB |
+
+An earlier independent fixed-distance run produced approximately:
 
 | Direction | Stock | Modified | Change |
 |---|---:|---:|---:|
@@ -235,12 +258,16 @@ Operate within applicable flight and radio regulations. Do not use range testing
 
 ## 12. Restore stock
 
+As with the experimental profile, first run `mount -o remount,rw /` on the endpoint being restored.
+
 Open the configuration menu on each endpoint and choose either:
 
 - `1` to stage the known device-specific stock values; or
 - `6` to stage the exact timestamped backup made from that endpoint.
 
 Review the diff, apply with `APPLY`, reboot and verify file/runtime agreement.
+
+Before rebooting, run `sync` followed by `mount -o remount,ro /`.
 
 Expected stock restoration:
 

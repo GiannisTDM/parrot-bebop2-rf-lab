@@ -56,6 +56,19 @@ Representative modified per-chain values were about -20/-20 dBm at the Bebop and
 
 The asymmetry is consistent with the stock Bebop being a little stronger than the stock controller, but it does not by itself identify whether the difference comes from conducted power, antenna pattern, calibration, or receiver-chain layout.
 
+### Fresh annotated replication
+
+A later same-channel 5 m capture reproduced the effect with the unified RF Lab display and the active values visible in every image. Both endpoints were stock during the baseline and both used the experimental profile during the modified run:
+
+| Receiver | Incoming direction | Stock | Modified | Delta |
+|---|---|---:|---:|---:|
+| Bebop 2 | SC2 -> Bebop | -38 dBm | -22 dBm | +16 dB |
+| SkyController 2 | Bebop -> SC2 | -33 dBm | -18 dBm | +15 dB |
+
+The screen reports the active NVM of the **receiving** endpoint. Accordingly, the stock Bebop capture shows `EPA0/PD7/MAXP76`, while the stock SC2 capture shows `EPA0/PD7/MAXP80`. Both modified captures show `EPA2/PD16/MAXP80`. The driver request remained `qtxpower=127`, confirming that this generic ceiling readout does not reveal the NVM calibration change.
+
+The associated screenshots are the primary visual evidence in the repository README. Earlier approximately +16.2 dB and +14.0 dB runs remain useful independent repetitions rather than being replaced by the newer values.
+
 ## Adjacent-device observations
 
 With the antennas extremely close after modifying both endpoints, reported values moved through roughly -8 dBm to positive readings; one chain displayed as high as +8 dBm.
