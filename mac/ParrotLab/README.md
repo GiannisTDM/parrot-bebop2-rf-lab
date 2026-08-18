@@ -2,6 +2,11 @@
 
 Parrot Lab is a native macOS HUD and diagnostic client for the Parrot SkyController 2 and Bebop 2. It is intentionally built from Apple system frameworks rather than Electron or an embedded browser.
 
+> [!WARNING]
+> **Development preview — not flight-ready.** Direct SkyController 2 USB communication is not implemented, and live video does not currently work. The present Telnet connection needs a separate IP route to the SC2, so this build must not be relied upon as a flight display or as a replacement for FreeFlight.
+
+The intended production transport is the SC2 mobile link used by FreeFlight: Bebop 2 video and telemetry arrive at `mppd` over Wi-Fi and are forwarded to the mobile client through Parrot's USB `libmux` channels. Version 0.1 does not yet implement that USB path.
+
 Version 0.1 provides:
 
 - direct, read-only Telnet connection to the SC2 at `192.168.42.88`;
@@ -82,9 +87,9 @@ It separately publishes per-chain Broadcom values, link-quality percentages, con
 
 Values of `500` used by `mppd` as unavailable altitude/position sentinels are deliberately shown as unavailable rather than as real telemetry.
 
-## Experimental live video
+## Non-working video prototype
 
-Select **Start video** after the SC2 telemetry connection is working.
+The **Start video** control is development scaffolding and is not expected to produce video in this version.
 
 The app:
 
@@ -94,9 +99,9 @@ The app:
 4. switches the local listener if the SC2 announces another port;
 5. accepts H.264/RTP payload type 96 and displays decoded access units immediately.
 
-The request/port assumptions come from the exact SC2 1.0.9 `mppd` binary and have not yet been exercised against a powered controller from this build. The console records the complete discovery response so the next live session can finish this mapping without another firmware excavation.
+The request/port assumptions came from a separate SC2 1.0.9 restream facility. Hardware testing established that this is not a working replacement for the FreeFlight USB-mobile session. FreeFlight uses `mppd`'s AOA/iAP2 `libmux` transport with dedicated command, stream-data and stream-control channels.
 
-If the endpoint probe fails while UDP remains ready, this does not affect SC2 control or the telemetry HUD. It means the restream handshake needs to be adjusted from the captured live response.
+Failure of this prototype does not affect SC2 control or the telemetry HUD. Direct USB role negotiation and the Parrot mux session need to be implemented before the application can receive the controller-forwarded flight stream at range.
 
 ## Why the app runs on the Mac
 

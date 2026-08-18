@@ -112,11 +112,14 @@ Detailed usage and recovery instructions are in [the tool manual](tools/PARROT_R
 
 For a complete stock-to-modified reproduction—including backups, the exact per-device values, reboot/runtime verification, bidirectional 60-second logs, CSV retrieval and rollback—follow [Reproducing the RF results](docs/REPRODUCING_RESULTS.md).
 
-## Native macOS HUD
+## Native macOS HUD — under development
+
+> [!WARNING]
+> The macOS application is an early bench preview, not a usable flight display. Direct SkyController 2 USB transport is not implemented, and live video does not currently work. Its Telnet telemetry requires an existing IP route to the controller, which is unsuitable once the aircraft and controller leave the Mac's network range.
 
 [`mac/ParrotLab`](mac/ParrotLab) contains the first native Parrot Lab application for Apple-silicon Macs. It connects directly to the SkyController 2's Telnet telemetry, parses the existing `mppd`/Broadcom status feed and presents flight attitude, altitude, RF-chain signal, noise, SNR, link quality, SC2 health and video transport statistics in a graphical HUD.
 
-It also includes a sanitized hardware-free replay, SC2 video-restream endpoint discovery and a low-latency RTP/H.264 display path. Version 0.1 is deliberately read-only: it does not write RF NVM, Dragon video options or flight settings. The video negotiation path is implemented from the SC2 1.0.9 firmware evidence but still requires its first powered-hardware validation.
+It also includes a sanitized hardware-free replay and experimental SC2 video code. Version 0.1 is deliberately read-only: it does not write RF NVM, Dragon video options or flight settings. The attempted IP restream path is not the USB `libmux` transport used by FreeFlight and is retained only as development scaffolding.
 
 Build the double-clickable app with:
 
