@@ -85,7 +85,7 @@ It provides:
 The same file is used on both devices:
 
 ```sh
-# Bebop 2, from the Mac while connected to its network
+# Bebop 2
 lftp -e 'put tools/parrot_rf_lab.sh -o internal_000/parrot_rf_lab.sh; bye' \
   ftp://192.168.42.1
 
