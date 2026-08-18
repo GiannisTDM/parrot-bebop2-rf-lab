@@ -59,6 +59,8 @@ parrot_rf_lab.sh self-test        parser/editor sanity check
 
 The menu is the simplest entry point. `RF_LAB_INTERVAL=2` changes the sample interval, `RF_LAB_PEER=aa:bb:cc:dd:ee:ff` forces a peer, `NO_COLOR=1` disables colors, and `RF_LAB_NO_CLEAR=1` makes each dashboard frame scroll instead of replacing the previous frame.
 
+For the complete experimental procedure rather than only the command reference, see [`docs/REPRODUCING_RESULTS.md`](../docs/REPRODUCING_RESULTS.md).
+
 ## NVM editing and recovery
 
 The active files are:

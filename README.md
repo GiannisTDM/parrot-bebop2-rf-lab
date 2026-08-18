@@ -92,9 +92,12 @@ sh /data/lib/ftp/internal_000/parrot_rf_lab.sh menu
 
 Detailed usage and recovery instructions are in [the tool manual](tools/PARROT_RF_LAB.md).
 
+For a complete stock-to-modified reproduction—including backups, the exact per-device values, reboot/runtime verification, bidirectional 60-second logs, CSV retrieval and rollback—follow [Reproducing the RF results](docs/REPRODUCING_RESULTS.md).
+
 ## Evidence
 
 - [Complete experiment record](docs/EXPERIMENTS.md)
+- [Step-by-step replication guide](docs/REPRODUCING_RESULTS.md)
 - [Stock BB2 versus SC2 RF comparison](docs/STOCK_COMPARISON.md)
 - [RF parameter analysis](notes/bcm43526-rf-experiment-notes.md)
 - [Power estimate and uncertainty](docs/POWER_ESTIMATE.md)
