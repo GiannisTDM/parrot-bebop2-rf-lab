@@ -4,6 +4,8 @@ Open research and a BusyBox-native RF diagnostic tool for the Parrot Bebop 2 and
 
 Both devices contain a Broadcom BCM43526-family Wi-Fi radio, two RF chains, and Skyworks SKY85803 front-end modules. This project maps that stack, records controlled RF experiments, and provides one script that can monitor or carefully stage the relevant NVM settings on either endpoint.
 
+**The demonstrated RF improvement is entirely software-configured:** it requires no soldering, disassembly, antenna replacement, external amplifier, or other physical modification. Additional cooling may be sensible during extended RF characterization, but it is optional and is not what produces the measured signal increase.
+
 No Parrot firmware image, factory calibration dump, credential, serial number, or flight log is distributed here.
 
 > [!CAUTION]
