@@ -145,7 +145,7 @@ Contributions with BCM43526 documentation, sanitized stock NVM comparisons, cali
 
 ## Acknowledgements
 
-This work was partly inspired by the community-authored [*An unofficial Bebop drone hacking guide 1.7.2*](https://fargesportfolio.com/wp-content/uploads/2018/01/BeebopHackingGuide1_7_2.pdf). Its unusually thorough explanation of the Bebop's Linux filesystem, Telnet/FTP access, backup discipline and accessible developer tooling showed how open the platform really was and encouraged GiannisTDM to begin experimenting with the Bebop 2. It remains excellent background material for practically any Bebop software project.
+This work was partly inspired by the community-authored [*An unofficial Bebop drone hacking guide 1.7.2*](https://fargesportfolio.com/wp-content/uploads/2018/01/BeebopHackingGuide1_7_2.pdf). Its unusually thorough explanation of the Bebop's Linux filesystem, Telnet/FTP access, backup discipline and accessible developer tooling showed how open the platform really was and encouraged me to begin experimenting with the Bebop 2. It remains excellent background material for practically any Bebop software project.
 
 The guide did not provide the RF profile or code published here; credit is for foundational documentation and inspiration. Additional acknowledgements and prior-art context are in [ACKNOWLEDGEMENTS.md](ACKNOWLEDGEMENTS.md).
 
