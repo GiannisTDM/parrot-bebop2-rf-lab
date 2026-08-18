@@ -24,3 +24,7 @@ measurements/
 # Earlier device-specific prototypes superseded by parrot_rf_lab.sh.
 tools/pes_live_busybox.sh
 tools/pes_live_sc2_busybox.sh
+
+# Native macOS build products.
+mac/ParrotLab/.build/
+mac/ParrotLab/dist/

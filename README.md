@@ -112,6 +112,21 @@ Detailed usage and recovery instructions are in [the tool manual](tools/PARROT_R
 
 For a complete stock-to-modified reproduction—including backups, the exact per-device values, reboot/runtime verification, bidirectional 60-second logs, CSV retrieval and rollback—follow [Reproducing the RF results](docs/REPRODUCING_RESULTS.md).
 
+## Native macOS HUD
+
+[`mac/ParrotLab`](mac/ParrotLab) contains the first native Parrot Lab application for Apple-silicon Macs. It connects directly to the SkyController 2's Telnet telemetry, parses the existing `mppd`/Broadcom status feed and presents flight attitude, altitude, RF-chain signal, noise, SNR, link quality, SC2 health and video transport statistics in a graphical HUD.
+
+It also includes a sanitized hardware-free replay, SC2 video-restream endpoint discovery and a low-latency RTP/H.264 display path. Version 0.1 is deliberately read-only: it does not write RF NVM, Dragon video options or flight settings. The video negotiation path is implemented from the SC2 1.0.9 firmware evidence but still requires its first powered-hardware validation.
+
+Build the double-clickable app with:
+
+```sh
+cd mac/ParrotLab
+./scripts/build-app.sh
+```
+
+See the [Parrot Lab macOS guide](mac/ParrotLab/README.md) for operation, current limitations and the planned progression from RF utility to unified BB2/SC2 suite.
+
 ## Evidence
 
 - [Complete experiment record](docs/EXPERIMENTS.md)
@@ -123,6 +138,7 @@ For a complete stock-to-modified reproduction—including backups, the exact per
 - [Device access and important paths](docs/DEVICE_ACCESS.md)
 - [Bebop 2 firmware map](notes/bebop2-firmware-map.md)
 - [SkyController 2 firmware map](notes/skycontroller2-firmware-map.md)
+- [Bebop video and SC2 restream map](notes/bebop2-video-streaming.md)
 
 The 52 m test remained around -42 to -45 dBm on the Bebop side and approximately -36 to -48 dBm across the SC2 chains. A later 650 m flight, with the aircraft about 14 m below the launch elevation and partial terrain/tree obstruction, retained three to four indicated bars with responsive controls and no visible video stutter. The 650 m observation is useful field evidence but was not accompanied by a raw RF Lab CSV, so it is recorded as qualitative rather than laboratory data.
 
@@ -133,6 +149,7 @@ tools/parrot_rf_lab.sh           unified on-device dashboard/editor/logger
 tools/bebop_signal_logger.py     optional Mac-side Telnet logger
 tools/extract_plf.py             reproducible PLF filesystem extractor
 tools/tests/rf_lab_fixture/      sanitized parser fixture
+mac/ParrotLab/                   native macOS video HUD and SC2 client
 docs/                            experiment, access and measurement documentation
 notes/                           detailed firmware and BCM43526 research maps
 ```
