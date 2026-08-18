@@ -1,0 +1,1 @@
+txframe 39070 txbyte 4800000 txretrans 60 txerror 6 txfail 7 rxframe 44406 rxbyte 9600000 rxerror 0 rxcrc 4 rxbadfcs 18 rxbadplcp 1

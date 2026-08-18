@@ -1,0 +1,13 @@
+ STA 02:00:00:12:34:56:
+ tx data pkts: 1200
+ tx data bytes: 4800000
+ tx failures: 7
+ rx data pkts: 2400
+ rx data bytes: 9600000
+ rate of last tx pkt: 65000 kbps
+ rate of last rx pkt: 19500 kbps
+ tx data pkts retried: 9
+ tx data pkts retry exhausted: 2
+ per antenna rssi of last rx data frame: -15 -20 0 0
+ per antenna average rssi of rx data frames: -16 -21 0 0
+ per antenna noise floor: 0 0 0 0

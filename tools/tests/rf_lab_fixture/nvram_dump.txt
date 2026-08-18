@@ -1,0 +1,5 @@
+epagain2g=2
+pdgain2g=16
+maxp2ga0=80
+maxp2ga1=80
+femctrl=1
